@@ -7,9 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MemoModel.h"
+
+typedef void (^RecordingSaveCompletionHandler) (BOOL isSuccess, id message);
+typedef void (^RecorderManagerResponer) (BOOL ret);
 
 @interface RecorderManager : NSObject
 
+@property (nonatomic, assign) NSTimeInterval currentRecordedDuration;
+
 + (instancetype)shareRecorderManger;
+
+- (void)startRecord:(RecorderManagerResponer)responder;
+- (void)pauseRecord;
+- (void)stopRecord;
+
+- (void)saveRecordingWithFileName:(NSString *)fileName completionHandler:(RecordingSaveCompletionHandler)completionHandler;
+- (void)playbackWithModel:(MemoModel *)model;
 
 @end

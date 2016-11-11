@@ -16,6 +16,8 @@
 		040E4C251DD1D78100FA7AA5 /* AVAudioRecorderTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4C241DD1D78100FA7AA5 /* AVAudioRecorderTestTests.m */; };
 		040E4C301DD1D78100FA7AA5 /* AVAudioRecorderTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4C2F1DD1D78100FA7AA5 /* AVAudioRecorderTestUITests.m */; };
 		040E4C3F1DD1D91E00FA7AA5 /* RecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4C3E1DD1D91E00FA7AA5 /* RecorderManager.m */; };
+		040E4C991DD4520B00FA7AA5 /* MemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4C981DD4520B00FA7AA5 /* MemoModel.m */; };
+		040E4CDC1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4CDB1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,10 @@
 		040E4C311DD1D78100FA7AA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		040E4C3D1DD1D91E00FA7AA5 /* RecorderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecorderManager.h; sourceTree = "<group>"; };
 		040E4C3E1DD1D91E00FA7AA5 /* RecorderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecorderManager.m; sourceTree = "<group>"; };
+		040E4C971DD4520B00FA7AA5 /* MemoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoModel.h; sourceTree = "<group>"; };
+		040E4C981DD4520B00FA7AA5 /* MemoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoModel.m; sourceTree = "<group>"; };
+		040E4CDA1DD4724400FA7AA5 /* RecordingMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingMessageTableViewCell.h; sourceTree = "<group>"; };
+		040E4CDB1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingMessageTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,9 @@
 		040E4C091DD1D78000FA7AA5 /* AVAudioRecorderTest */ = {
 			isa = PBXGroup;
 			children = (
+				040E4CD91DD4722000FA7AA5 /* Cell */,
+				040E4C971DD4520B00FA7AA5 /* MemoModel.h */,
+				040E4C981DD4520B00FA7AA5 /* MemoModel.m */,
 				040E4C3D1DD1D91E00FA7AA5 /* RecorderManager.h */,
 				040E4C3E1DD1D91E00FA7AA5 /* RecorderManager.m */,
 				040E4C0D1DD1D78000FA7AA5 /* AppDelegate.h */,
@@ -143,6 +152,15 @@
 				040E4C311DD1D78100FA7AA5 /* Info.plist */,
 			);
 			path = AVAudioRecorderTestUITests;
+			sourceTree = "<group>";
+		};
+		040E4CD91DD4722000FA7AA5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				040E4CDA1DD4724400FA7AA5 /* RecordingMessageTableViewCell.h */,
+				040E4CDB1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +230,7 @@
 				TargetAttributes = {
 					040E4C061DD1D78000FA7AA5 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = XFHA3SJ437;
 						ProvisioningStyle = Automatic;
 					};
 					040E4C1F1DD1D78100FA7AA5 = {
@@ -278,6 +297,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040E4C991DD4520B00FA7AA5 /* MemoModel.m in Sources */,
+				040E4CDC1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m in Sources */,
 				040E4C121DD1D78000FA7AA5 /* ViewController.m in Sources */,
 				040E4C3F1DD1D91E00FA7AA5 /* RecorderManager.m in Sources */,
 				040E4C0F1DD1D78000FA7AA5 /* AppDelegate.m in Sources */,
@@ -430,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XFHA3SJ437;
 				INFOPLIST_FILE = AVAudioRecorderTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lzztest.AVAudioRecorderTest;
@@ -441,6 +463,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XFHA3SJ437;
 				INFOPLIST_FILE = AVAudioRecorderTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lzztest.AVAudioRecorderTest;
@@ -513,6 +536,7 @@
 				040E4C361DD1D78100FA7AA5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		040E4C371DD1D78100FA7AA5 /* Build configuration list for PBXNativeTarget "AVAudioRecorderTestTests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +545,7 @@
 				040E4C391DD1D78100FA7AA5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		040E4C3A1DD1D78100FA7AA5 /* Build configuration list for PBXNativeTarget "AVAudioRecorderTestUITests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +554,7 @@
 				040E4C3C1DD1D78100FA7AA5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
