@@ -66,12 +66,22 @@
                                             <constraint firstAttribute="width" constant="222" id="qVj-1t-XEt"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfy-zp-z7D" customClass="MyLevelMeterView">
+                                        <rect key="frame" x="0.0" y="192" width="375" height="8"/>
+                                        <color key="backgroundColor" red="0.67443490028381348" green="0.67455297708511353" blue="0.67442750930786133" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="8" id="D7w-Gk-2XD"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="dfj-Xh-8o8" firstAttribute="centerY" secondItem="DLE-h8-O34" secondAttribute="centerY" id="80R-pD-WQt"/>
+                                    <constraint firstAttribute="bottom" secondItem="mfy-zp-z7D" secondAttribute="bottom" id="G71-7i-UmO"/>
+                                    <constraint firstItem="mfy-zp-z7D" firstAttribute="leading" secondItem="DLE-h8-O34" secondAttribute="leading" id="WTR-lQ-Km4"/>
                                     <constraint firstAttribute="height" constant="200" id="afg-8o-nsa"/>
                                     <constraint firstItem="dfj-Xh-8o8" firstAttribute="centerX" secondItem="DLE-h8-O34" secondAttribute="centerX" id="iwE-Cb-p7b"/>
+                                    <constraint firstAttribute="trailing" secondItem="mfy-zp-z7D" secondAttribute="trailing" id="kVn-i1-6sO"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6rc-HD-hTQ">
@@ -156,6 +166,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="levelMeterView" destination="mfy-zp-z7D" id="7Ml-23-2Gk"/>
                         <outlet property="recordBtn" destination="wE7-IA-yiB" id="iZB-Np-syf"/>
                         <outlet property="stopBtn" destination="xQI-w8-lLl" id="LEr-VS-eKO"/>
                         <outlet property="tableView" destination="6rc-HD-hTQ" id="mKn-YK-hjA"/>

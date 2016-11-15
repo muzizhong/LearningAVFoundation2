@@ -10,11 +10,13 @@
 #import "RecorderManager.h"
 #import "RecordingMessageTableViewCell.h"
 #import "MemoModel.h"
+#import "MyLevelMeterView.h"
+
 
 #define MEMOS_ARCHIVE @"memos.archive"
 #define CELLID        @"RecordingMessageTableViewCell"
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, RecorderManagerDelegate>
 @property (strong, nonatomic) RecorderManager *recorderManager;
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLB;
@@ -25,10 +27,17 @@
 @property (strong, nonatomic) NSMutableArray *memos;
 
 @property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) CADisplayLink *levelTimer;
+@property (weak, nonatomic) IBOutlet MyLevelMeterView *levelMeterView;
 
 @end
 
 @implementation ViewController
+
+- (void)dealloc {
+    [self stopTimer];
+    [self stopMeterTimer];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,14 +53,17 @@
     __weak typeof(self) selfWeak = self;
     [self.recorderManager startRecord:^(BOOL ret) {
         if (ret) {
-            selfWeak.recordBtn.selected = !selfWeak.recordBtn.selected;
             selfWeak.stopBtn.enabled = YES;
+            selfWeak.recordBtn.enabled = YES;
+            selfWeak.recordBtn.selected = !selfWeak.recordBtn.selected;
             
-            if (sender.selected) {
+            if (selfWeak.recordBtn.selected) {
                 [selfWeak.timer setFireDate:[NSDate distantPast]];
+                [self startMeterTimer];
             } else {
                 [selfWeak.recorderManager pauseRecord];
                 [selfWeak.timer setFireDate:[NSDate distantFuture]];
+                [self stopMeterTimer];
             }
         }
     }];
@@ -64,6 +76,8 @@
     self.stopBtn.enabled = NO;
 
     [self.recorderManager stopRecord];
+    [self stopTimer];
+    [self stopMeterTimer];
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Save Recording" message:@"Please provide a name" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -112,7 +126,35 @@
 #pragma mark - Timer
 
 - (void)updateRecordingDuration:(NSTimer *)timer {
+    //
     self.timeLB.text = [self stringWithTime:[self.recorderManager currentRecordedDuration]];
+}
+
+- (void)updateLevel:(CADisplayLink *)timer {
+    //
+    THLevelPair *pair = [self.recorderManager levels];
+    self.levelMeterView.level = pair.level;
+    self.levelMeterView.peakLevel = pair.peakLevel;
+    [self.levelMeterView setNeedsDisplay];
+}
+
+- (void)stopTimer {
+    [_timer invalidate];
+    _timer = nil;
+}
+
+- (void)startMeterTimer {
+    [self.levelTimer invalidate];
+    
+    self.levelTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateLevel:)];
+    self.levelTimer.frameInterval = 5;
+    [self.levelTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+}
+
+- (void)stopMeterTimer {
+    [self.levelTimer invalidate];
+    self.levelTimer = nil;
+    [self.levelMeterView resetLevelMeter];
 }
 
 - (NSString *)stringWithTime:(NSTimeInterval)time {
@@ -123,6 +165,34 @@
     NSInteger seconds = (currentRecordedDuration % 60);
     
     return [NSString stringWithFormat:@"%02ld:%02ld:%02ld", hours, minutes, seconds];
+}
+
+#pragma mark - RecorderMangerDelegate
+
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
+    NSLog(@"success");
+}
+
+- (void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error {
+    NSLog(@"error: %@", error.localizedDescription);
+}
+
+- (void)audioRecorderBeginInterruption:(AVAudioRecorder *)recorder {
+    NSLog(@"interruption begin");
+    [self.recorderManager stopRecord];
+    
+    self.recordBtn.selected = NO;
+    self.recordBtn.enabled = NO;
+    self.stopBtn.enabled = NO;
+    
+    [self.timer setFireDate:[NSDate distantFuture]];
+}
+
+- (void)audioRecorderEndInterruption:(AVAudioRecorder *)recorder withOptions:(NSUInteger)flags {
+    NSLog(@"interruption end");
+    if (flags == AVAudioSessionInterruptionOptionShouldResume) {
+        [self record:nil];
+    }
 }
 
 #pragma mark - UITableView Delegate 
@@ -154,6 +224,7 @@
 - (RecorderManager *)recorderManager {
     if (!_recorderManager) {
         _recorderManager = [RecorderManager shareRecorderManger];
+        _recorderManager.delegate = self;
     }
     return _recorderManager;
 }
@@ -172,7 +243,7 @@
 
 - (NSTimer *)timer {
     if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(updateRecordingDuration:) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(updateRecordingDuration:) userInfo:nil repeats:YES];
         _timer.fireDate = [NSDate distantFuture];
     }
     return _timer;

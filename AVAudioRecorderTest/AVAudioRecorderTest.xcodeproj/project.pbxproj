@@ -18,6 +18,9 @@
 		040E4C3F1DD1D91E00FA7AA5 /* RecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4C3E1DD1D91E00FA7AA5 /* RecorderManager.m */; };
 		040E4C991DD4520B00FA7AA5 /* MemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4C981DD4520B00FA7AA5 /* MemoModel.m */; };
 		040E4CDC1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E4CDB1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m */; };
+		0410DFB41DDAD77500D80F1C /* THMeterTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0410DFB31DDAD77500D80F1C /* THMeterTable.m */; };
+		0410DFB71DDAD90000D80F1C /* THLevelPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0410DFB61DDAD90000D80F1C /* THLevelPair.m */; };
+		0410DFBA1DDADA2D00D80F1C /* MyLevelMeterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0410DFB91DDADA2D00D80F1C /* MyLevelMeterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,12 @@
 		040E4C981DD4520B00FA7AA5 /* MemoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoModel.m; sourceTree = "<group>"; };
 		040E4CDA1DD4724400FA7AA5 /* RecordingMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingMessageTableViewCell.h; sourceTree = "<group>"; };
 		040E4CDB1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingMessageTableViewCell.m; sourceTree = "<group>"; };
+		0410DFB21DDAD77500D80F1C /* THMeterTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THMeterTable.h; sourceTree = "<group>"; };
+		0410DFB31DDAD77500D80F1C /* THMeterTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THMeterTable.m; sourceTree = "<group>"; };
+		0410DFB51DDAD90000D80F1C /* THLevelPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THLevelPair.h; sourceTree = "<group>"; };
+		0410DFB61DDAD90000D80F1C /* THLevelPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THLevelPair.m; sourceTree = "<group>"; };
+		0410DFB81DDADA2D00D80F1C /* MyLevelMeterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLevelMeterView.h; sourceTree = "<group>"; };
+		0410DFB91DDADA2D00D80F1C /* MyLevelMeterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLevelMeterView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,12 +120,18 @@
 			isa = PBXGroup;
 			children = (
 				040E4CD91DD4722000FA7AA5 /* Cell */,
+				0410DFB21DDAD77500D80F1C /* THMeterTable.h */,
+				0410DFB31DDAD77500D80F1C /* THMeterTable.m */,
+				0410DFB51DDAD90000D80F1C /* THLevelPair.h */,
+				0410DFB61DDAD90000D80F1C /* THLevelPair.m */,
 				040E4C971DD4520B00FA7AA5 /* MemoModel.h */,
 				040E4C981DD4520B00FA7AA5 /* MemoModel.m */,
 				040E4C3D1DD1D91E00FA7AA5 /* RecorderManager.h */,
 				040E4C3E1DD1D91E00FA7AA5 /* RecorderManager.m */,
 				040E4C0D1DD1D78000FA7AA5 /* AppDelegate.h */,
 				040E4C0E1DD1D78000FA7AA5 /* AppDelegate.m */,
+				0410DFB81DDADA2D00D80F1C /* MyLevelMeterView.h */,
+				0410DFB91DDADA2D00D80F1C /* MyLevelMeterView.m */,
 				040E4C101DD1D78000FA7AA5 /* ViewController.h */,
 				040E4C111DD1D78000FA7AA5 /* ViewController.m */,
 				040E4C131DD1D78000FA7AA5 /* Main.storyboard */,
@@ -297,8 +312,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0410DFB71DDAD90000D80F1C /* THLevelPair.m in Sources */,
 				040E4C991DD4520B00FA7AA5 /* MemoModel.m in Sources */,
+				0410DFB41DDAD77500D80F1C /* THMeterTable.m in Sources */,
 				040E4CDC1DD4724400FA7AA5 /* RecordingMessageTableViewCell.m in Sources */,
+				0410DFBA1DDADA2D00D80F1C /* MyLevelMeterView.m in Sources */,
 				040E4C121DD1D78000FA7AA5 /* ViewController.m in Sources */,
 				040E4C3F1DD1D91E00FA7AA5 /* RecorderManager.m in Sources */,
 				040E4C0F1DD1D78000FA7AA5 /* AppDelegate.m in Sources */,

@@ -7,9 +7,9 @@
 //
 
 #import "RecorderManager.h"
-#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 //#import <AVFoundation/AVAudioSettings.h>
+#import "THMeterTable.h"
 
 /*
      AVAudioRecorder 和 AVAudioPlayer 一样都是构建与 Audio Queue Services 之上
@@ -55,6 +55,8 @@
 
 @property (assign, nonatomic) NSTimeInterval recordingDuration;
 
+@property (strong, nonatomic) THMeterTable *meterTable;
+
 @end
 
 @implementation RecorderManager
@@ -73,6 +75,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         [self initRecorder];
+        _meterTable = [[THMeterTable alloc] init];
     }
     return self;
 }
@@ -172,7 +175,7 @@
         NSLog(@"success");
         if (completionHandler) {
             
-#warning //1 获取录音时长失败 ,所以先用 //2
+#warning //1 获取录音时长失败, 所以先用 //2
             NSTimeInterval recordingDuration = 0.0f;
 #if 0   
             //1
@@ -307,6 +310,15 @@
     }
 }
 
+- (THLevelPair *)levels {
+    [self.recorder updateMeters];
+    float avgPower = [self.recorder averagePowerForChannel:0];
+    float peakPower = [self.recorder peakPowerForChannel:0];
+    float linearLevel = [self.meterTable valueForPower:avgPower];
+    float linearPeak = [self.meterTable valueForPower:peakPower];
+    return [THLevelPair levelsWithLevel:linearLevel peakLevel:linearPeak];
+}
+
 #pragma mark - AlertViewDelegate 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -331,34 +343,46 @@
 
 /* audioRecorderDidFinishRecording:successfully: is called when a recording has been finished or stopped. This method is NOT called if the recorder is stopped due to an interruption. */
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
-    
+    NSLog(@"录音已经完成");
+    if (self.delegate && [self.delegate respondsToSelector:@selector(audioRecorderDidFinishRecording:successfully:)]) {
+        [self.delegate audioRecorderDidFinishRecording:recorder successfully:flag];
+    }
 }
 
 /* if an error occurs while encoding it will be reported to the delegate. */
 - (void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError * __nullable)error {
-    
+    NSLog(@"录音编码时出现错误");
+    if (self.delegate && [self.delegate respondsToSelector:@selector(audioRecorderEncodeErrorDidOccur:error:)]) {
+        [self.delegate audioRecorderEncodeErrorDidOccur:recorder error:error];
+    }
 }
 
 /* AVAudioRecorder INTERRUPTION NOTIFICATIONS ARE DEPRECATED - Use AVAudioSession instead. */
 
 /* audioRecorderBeginInterruption: is called when the audio session has been interrupted while the recorder was recording. The recorded file will be closed. */
 - (void)audioRecorderBeginInterruption:(AVAudioRecorder *)recorder {
-
+    NSLog(@"录音开始中断");
+    if (self.delegate && [self.delegate respondsToSelector:@selector(audioRecorderBeginInterruption:)]) {
+        [self.delegate audioRecorderBeginInterruption:recorder];
+    }
 }
 
 /* audioRecorderEndInterruption:withOptions: is called when the audio session interruption has ended and this recorder had been interrupted while recording. */
 /* Currently the only flag is AVAudioSessionInterruptionFlags_ShouldResume. */
 - (void)audioRecorderEndInterruption:(AVAudioRecorder *)recorder withOptions:(NSUInteger)flags {
-
+    NSLog(@"录音中断结束3");
+    if (self.delegate && [self.delegate respondsToSelector:@selector(audioRecorderEndInterruption:withOptions:)]) {
+        [self.delegate audioRecorderEndInterruption:recorder withOptions:flags];
+    }
 }
 
 - (void)audioRecorderEndInterruption:(AVAudioRecorder *)recorder withFlags:(NSUInteger)flags {
-
+    NSLog(@"录音中断结束2");
 }
 
 /* audioRecorderEndInterruption: is called when the preferred method, audioRecorderEndInterruption:withFlags:, is not implemented. */
 - (void)audioRecorderEndInterruption:(AVAudioRecorder *)recorder {
-    
+    NSLog(@"录音中断结束1");
 }
 
 @end
